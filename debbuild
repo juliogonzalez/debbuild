@@ -669,7 +669,18 @@ ENDIF: if (/^\s*%endif/) {
       if ($pkgdata{main}{$stage}) { # Multi-part changelog
         $pkgdata{main}{$stage} =~ s/\s+$/\n\n/g; # Trim trailing blanks
       } else {
-        $pkgdata{main}{$stage} = '';
+        my $changelogfile = $specglobals{specfile} =~ s/\.rpm/\.changes/r;
+        if (-r $changelogfile) {
+          open(my $clfile, '<:encoding(UTF-8)', $changelogfile); {
+            local $/;
+            my $content = <$clfile>;
+            $content =~ s/\s+$/\n\n/g; # Trim trailing blanks
+            $pkgdata{main}{$stage} = $content;
+          }
+          close($clfile);
+        } else {
+          $pkgdata{main}{$stage} = '';
+        }
       }
     }
 

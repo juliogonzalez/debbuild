@@ -88,6 +88,9 @@ rebuild .src.rpm source packages as .deb binary packages.
 %{_datadir}/locale/de/LC_MESSAGES/debbuild.mo
 
 %changelog
+* Mon Oct 14 2019  Julio González Gil <git@juliogonzalez.es>
+- Support changelogs from .changelog files
+
 * Fri Feb 01 2019  Andreas Scherer <https://ascherer.github.io/>
 - Replace debsigs with dpkg-sig for package signing
 
